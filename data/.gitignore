@@ -1,0 +1,18 @@
+# 忽略用户大体积遥感/高程/切片数据文件
+*.tif
+*.tiff
+*.npy
+*.terrain
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.glb
+*.gltf
+*.mbtiles
+*.zip
+
+# 保留说明文档与目录占位
+!README.md
+!.gitignore

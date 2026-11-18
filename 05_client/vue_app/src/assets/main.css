@@ -1,0 +1,254 @@
+/* =============================================================================
+   三维数字孪生城市全域沙盘 - 优雅极简蔚蓝 & 珠白 (Blue & White Glassmorphism)
+   灵感源自 Apple / VisionOS / macOS 极致磨砂玻璃拟态设计系统
+   ============================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  /* 核心蓝色调系统 (多种层次的海洋蓝、蔚蓝与冰蓝) */
+  --blue-primary: #007AFF;           /* 经典苹果皇家蓝 / 高亮交互色 */
+  --blue-primary-rgb: 0, 122, 255;
+  --blue-accent: #38BDF8;            /* 冰川天蓝 / 重点数据点缀 */
+  --blue-accent-rgb: 56, 189, 248;
+  --blue-deep: #0D2144;              /* 深邃海蓝底色 */
+  --blue-glow: 0 0 20px rgba(0, 122, 255, 0.55);
+  --blue-subtle: rgba(0, 122, 255, 0.15);
+  --blue-ice: #E0F2FE;               /* 极浅冰蓝白 */
+
+  /* 白色系统 (纯白、珠白与透白毛玻璃) */
+  --white-pure: #FFFFFF;
+  --white-soft: #F8FAFC;
+  --white-dim: rgba(255, 255, 255, 0.75);
+  --white-muted: rgba(255, 255, 255, 0.45);
+  --white-border: rgba(255, 255, 255, 0.18);
+  --white-border-strong: rgba(255, 255, 255, 0.32);
+
+  /* 磨砂玻璃背景系统 */
+  --bg-deep: #050B14;
+  --panel-bg: rgba(10, 25, 48, 0.78);
+  --panel-bg-hover: rgba(14, 34, 64, 0.88);
+  --panel-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  --panel-shadow: 0 16px 40px rgba(2, 8, 20, 0.65), 0 2px 10px rgba(0, 122, 255, 0.12);
+
+  /* 状态指示色 */
+  --status-success: #10B981;
+  --status-warning: #F59E0B;
+  --status-danger: #EF4444;
+
+  /* 字体系统 */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-deep);
+  color: var(--white-pure);
+}
+
+/* 隐藏 Cesium 原生底栏与控件 */
+.cesium-viewer-bottom,
+.cesium-viewer-toolbar,
+.cesium-viewer-animationContainer,
+.cesium-viewer-timelineContainer {
+  display: none !important;
+}
+
+/* =============================================================================
+   Apple 级高质感磨砂玻璃面板规范 (.hud-panel)
+   ============================================================================= */
+.hud-panel {
+  position: absolute;
+  background: var(--panel-bg);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid var(--white-border);
+  box-shadow: var(--panel-shadow), var(--panel-bevel);
+  border-radius: 16px;
+  color: var(--white-pure);
+  padding: 18px 20px;
+  z-index: 99;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hud-panel:hover {
+  border-color: var(--white-border-strong);
+  box-shadow: 0 20px 48px rgba(2, 8, 20, 0.75), 0 4px 16px rgba(0, 122, 255, 0.2), var(--panel-bevel);
+}
+
+/* =============================================================================
+   iOS / macOS 风格交互胶囊按钮 (.btn)
+   ============================================================================= */
+.btn {
+  font-family: var(--font-sans);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--white-pure);
+  padding: 7px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 122, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* 激活态：经典苹果高亮皇家蓝 */
+.btn.active {
+  background: var(--blue-primary);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #FFFFFF;
+  box-shadow: var(--blue-glow), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  font-weight: 700;
+}
+
+/* 纯白主按钮（如启动、确认） */
+.btn-white {
+  background: #FFFFFF;
+  color: #0A1930;
+  border-color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.btn-white:hover {
+  background: #F0F7FF;
+  box-shadow: 0 6px 22px rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+/* 蓝色主按钮 */
+.btn-blue {
+  background: var(--blue-primary);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.3);
+  font-weight: 700;
+  box-shadow: var(--blue-glow);
+}
+
+.btn-blue:hover {
+  background: #1D88FE;
+  box-shadow: 0 0 25px rgba(0, 122, 255, 0.75);
+}
+
+.btn-tiny {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 9999px;
+}
+
+/* =============================================================================
+   圆润灵动指示圆点 (.radar-pulse)
+   ============================================================================= */
+.radar-pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--blue-primary);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--blue-primary);
+  animation: applePulse 2s infinite ease-in-out;
+}
+
+@keyframes applePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 8px rgba(0, 122, 255, 0.7);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.85);
+    box-shadow: 0 0 16px rgba(0, 122, 255, 0.3);
+    opacity: 0.6;
+  }
+}
+
+/* =============================================================================
+   iOS 风格滑块 (Range Slider)
+   ============================================================================= */
+input[type="range"].tuner-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+input[type="range"].tuner-slider:hover {
+  background: rgba(0, 122, 255, 0.35);
+}
+
+input[type="range"].tuner-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 8px rgba(0, 122, 255, 0.4);
+  transition: transform 0.15s ease, background-color 0.15s;
+}
+
+input[type="range"].tuner-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+  background: #F0F7FF;
+}
+
+/* =============================================================================
+   控制台滚动条美化
+   ============================================================================= */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 25, 48, 0.5);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blue-primary);
+}
