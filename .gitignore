@@ -143,3 +143,6 @@ Thumbs.db
 Desktop.ini
 *.log
 *.tmp
+
+# 本地操作指引 (不上传至公共开源仓库)
+GIT_GUIDE.md

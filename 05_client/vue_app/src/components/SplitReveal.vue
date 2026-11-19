@@ -52,7 +52,7 @@
         title="拖动对比 | 双击吸附到中心 | ← → 微调"
       >
         <span class="handle-arrow">&#8249;</span>
-        <span class="handle-label">REPLIKA™</span>
+        <span class="handle-label">双屏对比</span>
         <span class="handle-arrow">&#8250;</span>
       </div>
 

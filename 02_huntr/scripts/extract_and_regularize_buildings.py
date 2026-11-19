@@ -205,7 +205,8 @@ class ElevationSampler:
         rm = self.meta.get("raster_meta", {})
         ox, oy = rm.get("origin_x", 114.0436), rm.get("origin_y", 22.5536)
         sx, sy = rm.get("scale_x", 0.000277778), rm.get("scale_y", 0.000277778)
-        w, h = rm.get("width", self.dem_arr.shape[1]), rm.get("height", self.dem_arr.shape[0])
+        w = self.dem_arr.shape[1]
+        h = self.dem_arr.shape[0]
 
         dem_vals = []
         ndsm_vals = []

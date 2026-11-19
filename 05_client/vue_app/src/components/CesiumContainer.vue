@@ -55,9 +55,13 @@ onMounted(async () => {
     await switchBasemap(cesiumStore.currentBasemap)
     await setTerrainMode(cesiumStore.currentTerrain)
 
-    // 3. 加载 3D Tileset (默认纯净白模，不挂载切除扫描 Shader)
+    // 3. 加载 3D Tileset (若初次启动暂无生成模型则静默忽略，避免阻断地球加载)
     loadingText.value = '正在加载三维建筑瓦片数据...'
-    await loadTileset('/tileset/tileset.json')
+    try {
+      await loadTileset('/tileset/tileset.json')
+    } catch (tileErr) {
+      console.warn('默认 Tileset 尚未生成或不存在，将直接进入三维地球，等待用户框选生成:', tileErr)
+    }
     loading.value = false
 
     // 获取真实模型解译与高程空间台账
